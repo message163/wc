@@ -37,4 +37,4 @@ Commands:
 
   get            快捷发起get请求
 
-  post           快捷发起get请求
+  post           快捷发起post请求

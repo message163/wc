@@ -150,7 +150,7 @@ program.command('get').description('快捷发起get请求').action(async () => {
 })
 
 
-program.command('post').description('快捷发起get请求').action(async () => {
+program.command('post').description('快捷发起post请求').action(async () => {
     const { url, params } = await inquirer.prompt<{ url: string, params: string }>([
         {
             type: "input",
