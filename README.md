@@ -20,7 +20,7 @@
 
 失败error
 
-# 至此快捷发送请求
+# 快捷发送请求
 
 wc get 
 
@@ -36,5 +36,5 @@ wc post
 Commands:
 
   get            快捷发起get请求
-  
+
   post           快捷发起get请求
