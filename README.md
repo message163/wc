@@ -19,3 +19,22 @@
 成功返回success  
 
 失败error
+
+# 至此快捷发送请求
+
+wc get 
+
+输入url即可
+
+
+wc post
+
+输入url
+
+输入参数
+
+Commands:
+
+  get            快捷发起get请求
+  
+  post           快捷发起get请求

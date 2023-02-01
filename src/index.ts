@@ -14,7 +14,7 @@ program.version(PKG.version).description('查看版本')
 
 
 
-program.action(async () => {
+program.description('请求API').action(async () => {
 
     const { isCache } = await inquirer.prompt([
         {
@@ -119,5 +119,73 @@ const sendHttp = async <T extends Result>(result: T) => {
         console.log(e)
     }
 }
+
+
+
+
+
+program.command('get').description('快捷发起get请求').action(async () => {
+    const { url } = await inquirer.prompt<{ url: string }>([
+        {
+            type: "input",
+            name: "url",
+            message: "快捷请求get请输入url",
+            validate(v) {
+                if (!v) {
+                    return 'url不能为空'
+                }
+                return true
+            }
+        }
+    ])
+    try {
+        const response = await http(url).then(res => res.json())
+        console.log(chalk.green('success'))
+        console.log(response)
+    }
+    catch (e) {
+        console.log(chalk.red('error'))
+        console.log(e)
+    }
+})
+
+
+program.command('post').description('快捷发起get请求').action(async () => {
+    const { url, params } = await inquirer.prompt<{ url: string, params: string }>([
+        {
+            type: "input",
+            name: "url",
+            message: "快捷请求post请输入url",
+            validate(v) {
+                if (!v) {
+                    return 'url不能为空'
+                }
+                return true
+            }
+        },
+        {
+            type: "input",
+            name: "params",
+            message: "请输入参数(没有请忽略)",
+            default: ""
+        }
+    ])
+    try {
+        const response = await http(url, {
+            method: "post",
+            body: JSON.stringify(params) || undefined,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+        console.log(chalk.green('success'))
+        console.log(response)
+    }
+    catch (e) {
+        console.log(chalk.red('error'))
+        console.log(e)
+    }
+})
+
 
 program.parse(process.argv)
