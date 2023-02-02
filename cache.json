@@ -1,3 +1,10 @@
 {
-
+    "GET-https://juejin.com": {
+        "method": "GET",
+        "header": "application/json",
+        "url": "https://juejin.com",
+        "params": "",
+        "response": "text",
+        "cache": true
+    }
 }

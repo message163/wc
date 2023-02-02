@@ -38,3 +38,5 @@ Commands:
   get            快捷发起get请求
 
   post           快捷发起post请求
+
+  ws             可以测试ws webSocket请求；

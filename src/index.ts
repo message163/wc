@@ -6,6 +6,7 @@ import { Result } from './type'
 import chalk from 'chalk'
 import fs from 'fs'
 import path from 'path'
+import ws from 'ws'
 const cacheJson = require('../cache.json')
 const PKG = require('../package.json')
 
@@ -185,6 +186,35 @@ program.command('post').description('快捷发起post请求').action(async () =>
         console.log(chalk.red('error'))
         console.log(e)
     }
+})
+
+
+
+program.command('ws').description('socket套接字测试').action(async () => {
+
+    const { url } = await inquirer.prompt<{url:string}>({
+        type: "input",
+        message: "请输入ws | wss 协议地址",
+        name: "url"
+    })
+
+    const socket = new ws(url)
+
+    socket.on('open', () => {
+        console.log('socket 已连接')
+    })
+
+    socket.on('message', (e) => {
+        console.log('result:' + e.toString())
+    })
+
+    socket.on('error', (e) => {
+        console.log('error', e)
+    })
+
+    socket.on('close', () => {
+        console.log('socket 已断开')
+    })
 })
 
 
