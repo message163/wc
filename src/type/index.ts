@@ -7,4 +7,5 @@ export interface Result {
     params:string
     cache:boolean
     response:any
+    token:string
 }

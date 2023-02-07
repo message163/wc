@@ -10,11 +10,13 @@
 
 4.输入请求资源路径 也就是url
 
-5.输入参数如果是get可以忽略
+5.请输入token没有请忽略
 
-6.选择返回格式(默认json) text blob buffer
+6.输入参数如果是get可以忽略
 
-7.是否缓存 Y 缓存 N 取消 缓存起来可以下次直接使用
+7.选择返回格式(默认json) text blob buffer
+
+8.是否缓存 Y 缓存 N 取消 缓存起来可以下次直接使用
 
 成功返回success  
 
@@ -40,3 +42,5 @@ Commands:
   post           快捷发起post请求
 
   ws             可以测试ws webSocket请求；
+
+  del            删除缓存

@@ -71,9 +71,15 @@ program.description('请求API').action(async () => {
             },
             {
                 type: "input",
+                default: "",
+                message: "请输入token（GET请忽略）",
+                name: "token"
+            },
+            {
+                type: "input",
                 name: "params",
                 message: "请输入参数(GET忽略)",
-                default: ""
+                default: " "
             },
             {
                 type: "list",
@@ -104,7 +110,8 @@ const sendHttp = async <T extends Result>(result: T) => {
             method: result.method,
             body: result.params || undefined,
             headers: {
-                'Content-Type': result.header
+                'Content-Type': result.header,
+                 Authorization: result.token ?? ""
             }
         })
         const val = await response[result.response]()
@@ -192,7 +199,7 @@ program.command('post').description('快捷发起post请求').action(async () =>
 
 program.command('ws').description('socket套接字测试').action(async () => {
 
-    const { url } = await inquirer.prompt<{url:string}>({
+    const { url } = await inquirer.prompt<{ url: string }>({
         type: "input",
         message: "请输入ws | wss 协议地址",
         name: "url"
@@ -217,5 +224,33 @@ program.command('ws').description('socket套接字测试').action(async () => {
     })
 })
 
+
+program.command('del').description('删除缓存').action(async () => {
+    const keys = Object.keys(cacheJson)
+    if (keys.length === 0) {
+        return console.log(chalk.red('当前无缓存可以删除'))
+    }
+
+    try {
+        const { name } = await inquirer.prompt<{ name: string }>({
+            type: "list",
+            choices: keys,
+            name: "name",
+            message: "请选择删除的缓存"
+        })
+
+        delete cacheJson[name]
+        fs.writeFileSync(path.join(__dirname, '../cache.json'), JSON.stringify(cacheJson, null, 4))
+        console.log(chalk.green('success'))
+
+    }
+
+    catch (e) {
+        console.log(chalk.red('error'))
+        console.log(e)
+    }
+
+
+})
 
 program.parse(process.argv)
